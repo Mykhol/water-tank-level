@@ -11,11 +11,12 @@ export default async function handler(
   if (req.method === "POST") {
     const waterLevel = req.body as WaterLevel;
     const result = await waterLevelRepo.addWaterLevel(
+      waterLevel.id,
       waterLevel.timestamp,
-      waterLevel.timestamp
+      waterLevel.level
     );
 
-    return res.status(200);
+    return res.json({ message: result });
   }
 
   // Retrieve water level from database

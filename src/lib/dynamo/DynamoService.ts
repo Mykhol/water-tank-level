@@ -1,5 +1,9 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+import {
+  DynamoDBDocumentClient,
+  PutCommand,
+  PutCommandInput,
+} from "@aws-sdk/lib-dynamodb";
 
 export class DynamoService<T> {
   protected dynamoClient: DynamoDBClient;
@@ -47,12 +51,12 @@ export class DynamoService<T> {
    * @param item
    */
   async addItem(item: T) {
+    console.log(item);
+
     const params = {
       TableName: this.tableName,
-      Item: {
-        item,
-      },
-    };
+      Item: item,
+    } as PutCommandInput;
 
     return await this.documentClient.send(new PutCommand(params));
   }
