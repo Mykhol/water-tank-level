@@ -37,3 +37,6 @@ next-env.d.ts
 
 # jetbrains ide files
 /.idea
+
+# gcloud file
+*.yaml
