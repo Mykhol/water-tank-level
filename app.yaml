@@ -1,7 +1,0 @@
-runtime: nodejs16
-
-env_variables:
-  AWS_SECRET_ACCESS_KEY: "DLKb8nJcSS4meOe6QMJjSodO5q71Lb4/P35fDUq+"
-  AWS_ACCESS_KEY_ID: "AKIAVDFQIMO44BEK2VCR"
-  AWS_REGION: "ap-northeast-1"
-
