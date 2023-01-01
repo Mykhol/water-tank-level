@@ -1,8 +1,10 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
+  GetCommand,
   PutCommand,
   PutCommandInput,
+  ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 export class DynamoService<T> {
@@ -51,13 +53,23 @@ export class DynamoService<T> {
    * @param item
    */
   async addItem(item: T) {
-    console.log(item);
-
     const params = {
       TableName: this.tableName,
       Item: item,
     } as PutCommandInput;
 
     return await this.documentClient.send(new PutCommand(params));
+  }
+
+  async getItems() {
+    const params = {
+      TableName: this.tableName,
+    };
+    const data = await this.documentClient.send(new ScanCommand(params));
+    if (data.$metadata.httpStatusCode === 200) {
+      return data.Items as T[];
+    }
+
+    return null;
   }
 }
