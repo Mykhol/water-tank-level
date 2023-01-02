@@ -16,8 +16,6 @@ const getWaterLevelData = async () => {
 export default async function Home() {
   const data = (await getWaterLevelData()) as WaterLevel[];
 
-  console.log(data[data.length - 1]);
-
   const sortedDesc = data?.sort(
     (objA, objB) => objB.timestamp - objA.timestamp
   ) as WaterLevel[];
