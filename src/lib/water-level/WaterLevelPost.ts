@@ -6,7 +6,7 @@ export const WaterLevelPost = async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const waterLevel = req.body.level;
+  const waterLevel = Number(req.body);
   const currTime = Date.now();
 
   const waterLevelObject: WaterLevel = {
