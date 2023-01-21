@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
+          
+      - name: Print env variables
+        env:
+          MY_AWS_REGION: ${{ env.MY_AWS_REGION }}
+        run: echo $MY_AWS_REGION
+          
 
       - name: npm install, build
         env:
