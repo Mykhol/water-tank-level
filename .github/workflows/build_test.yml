@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: ['main']
   release: 
-    types: [published, unpublished]
+    types: [published, unpublished, created]
   push:
     branches: ['main']
 
