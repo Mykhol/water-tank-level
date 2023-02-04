@@ -1,0 +1,38 @@
+name: Run npm build
+
+on:
+  pull_request:
+    branches: ['main']
+  release: 
+    types: [published, unpublished, created]
+  push:
+    branches: ['main']
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '16.x'
+          
+      - name: Print env variables
+        env:
+          MY_AWS_REGION: ${{ vars.MY_AWS_REGION }}
+        run: echo $MY_AWS_REGION
+          
+
+      - name: npm install, build
+        env:
+          MY_AWS_SECRET_ACCESS_KEY: ${{ vars.MY_AWS_SECRET_ACCESS_KEY }}
+          MY_AWS_ACCESS_KEY_ID: ${{ vars.MY_AWS_ACCESS_KEY_ID }} 
+          MY_AWS_REGION: ${{ vars.MY_AWS_REGION }}
+          
+        run: |
+          npm install
+          npm run build
