@@ -8,9 +8,7 @@ export default async function RootLayout({
 }) {
   return (
     <html>
-      <body className="bg-gray-100">
-        <div className="m-[2%]">{children}</div>
-      </body>
+      <body className="bg-gray-100">{children}</body>
     </html>
   );
 }

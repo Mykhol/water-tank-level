@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { WaterLevel } from "../lib/water-level/WaterLevel";
 import { waterLevelRepo } from "../lib/di/DI";
 import dyn from "next/dynamic";
@@ -7,7 +7,6 @@ import heightToVolume from "../lib/heightToVolume";
 import UsageTodayWidget from "../lib/stat-widget/UsageTodayWidget";
 import CurrentLevel from "../lib/stat-widget/CurrentLevel";
 import Forecast from "../lib/stat-widget/Forecast";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const MyLine = dyn(import("../lib/MyLine"), { ssr: false });
@@ -48,7 +47,7 @@ export default async function Home() {
   const currentVolume = distanceToVolume(data[data.length - 1].level);
 
   return (
-    <div>
+    <div className="w-[4/5] m-4">
       <h2 className="text-3xl font-extrabold mb-1">Water Tank Level Monitor</h2>
       <p className="mb-8">
         Made by{" "}
@@ -60,7 +59,7 @@ export default async function Home() {
         </Link>
         .
       </p>
-      <div className="flex flex-row space-x-4 mb-6">
+      <div className="w-full space-y-2 lg:space-y-0 lg:space-x-2 flex lg:flex-row flex-col">
         <CurrentLevel litres={currentVolume} />
         <CurrentLevel litres={currentVolume} percent={true} />
         <UsageTodayWidget litres={usageInLitres} />

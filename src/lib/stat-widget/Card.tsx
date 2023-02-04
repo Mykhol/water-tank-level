@@ -11,7 +11,7 @@ const Card = ({
     <div
       className={classNames(
         className,
-        "w-fit h-fit bg-blue-500 flex flex-row items-center rounded-lg p-4 drop-shadow-lg"
+        "w-full sm:w-[1/4] h-fit bg-blue-500 flex flex-row items-center rounded-lg p-4 drop-shadow-lg"
       )}
     >
       {children}

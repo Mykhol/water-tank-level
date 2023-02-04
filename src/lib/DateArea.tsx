@@ -74,7 +74,7 @@ const DateArea = ({ chartData }: { chartData: any }) => {
   });
 
   const startDate = new Date(2023, 0, 1);
-  const endDate = new Date(2023, 0, 29);
+  const endDate = new Date(Date.now());
   // const data = [
   //   { date: startDate.getTime(), val: 2000 },
   //   { date: new Date(2019, 4, 30).getTime(), val: 5000 },
@@ -84,58 +84,57 @@ const DateArea = ({ chartData }: { chartData: any }) => {
   // ];
 
   const domain = [(dataMin: number) => dataMin, () => endDate.getTime()];
-  const ticks = getTicks(startDate, endDate, 10);
+  const ticks = getTicks(startDate, endDate, 5);
   const filledData = fillTicksData(ticks, data);
 
   return (
-    <Card className="w-1/2 h-[400px]">
-      <ResponsiveContainer width="100%" height="100%">
-        <AreaChart
-          data={filledData}
-          margin={{
-            top: 10,
-            right: 10,
-            bottom: 10,
-            left: 10,
-          }}
-          onClick={async (value) => {
-            await navigator.clipboard.writeText(
-              value.activePayload?.at(0).payload.id
-            );
-          }}
-        >
-          <XAxis
-            dataKey="date"
-            scale="time"
-            tickFormatter={dateFormatter}
-            type="number"
-            // @ts-ignore
-            domain={domain}
-            ticks={ticks}
-            stroke="#FFF"
-          />
-          {/*<YAxis tickCount={7} />*/}
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#FFFFFF" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.5} />
-            </linearGradient>
-          </defs>
-          <Area
-            type="basis"
-            dataKey="val"
-            stroke="none"
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
-          <Tooltip
-            labelFormatter={(value: number) => [
-              new Date(value).toLocaleString(),
-            ]}
-            formatter={(value, name, props) => [value, "Litres"]}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+    <Card className="w-full h-[400px] hidden lg:block mt-4">
+      <AreaChart
+        data={filledData}
+        margin={{
+          top: 10,
+          right: 10,
+          bottom: 10,
+          left: 10,
+        }}
+        width={900}
+        height={400}
+        onClick={async (value) => {
+          await navigator.clipboard.writeText(
+            value.activePayload?.at(0).payload.id
+          );
+        }}
+      >
+        <XAxis
+          dataKey="date"
+          scale="time"
+          tickFormatter={dateFormatter}
+          type="number"
+          // @ts-ignore
+          domain={domain}
+          ticks={ticks}
+          stroke="#FFF"
+          interval={0}
+        />
+        {/*<YAxis tickCount={7} />*/}
+        <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#FFFFFF" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#FFFFFF" stopOpacity={0.5} />
+          </linearGradient>
+        </defs>
+        <Area
+          type="basis"
+          dataKey="val"
+          stroke="none"
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
+        <Tooltip
+          labelFormatter={(value: number) => [new Date(value).toLocaleString()]}
+          formatter={(value, name, props) => [value, "Litres"]}
+        />
+      </AreaChart>
     </Card>
   );
 };
