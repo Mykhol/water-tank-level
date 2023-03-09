@@ -3,7 +3,7 @@
 import { Icon } from "@iconify/react";
 import Card from "./Card";
 
-const CurrentLevel = ({
+const LatestLevel = ({
   litres,
   percent = false,
 }: {
@@ -20,10 +20,10 @@ const CurrentLevel = ({
         <h2 className="text-2xl font-extrabold">
           {percent ? `${Math.round((litres / 22500) * 100)}%` : `${litres} L`}
         </h2>
-        <p className="">Current Level</p>
+        <p className="">Latest Level</p>
       </div>
     </Card>
   );
 };
 
-export default CurrentLevel;
+export default LatestLevel;

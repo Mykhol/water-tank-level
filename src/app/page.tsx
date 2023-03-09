@@ -5,7 +5,7 @@ import dyn from "next/dynamic";
 import distanceToVolume from "../lib/distanceToVolume";
 import heightToVolume from "../lib/heightToVolume";
 import UsageTodayWidget from "../lib/stat-widget/UsageTodayWidget";
-import CurrentLevel from "../lib/stat-widget/CurrentLevel";
+import LatestLevel from "../lib/stat-widget/LatestLevel";
 import Forecast from "../lib/stat-widget/Forecast";
 import Link from "next/link";
 
@@ -36,13 +36,20 @@ export default async function Home() {
     );
   });
 
-  const usageInLitres = heightToVolume(
-    usageToday[0].level - usageToday[usageToday.length - 1].level
-  );
+  const usageInLitres =
+    usageToday.length !== 0
+      ? heightToVolume(
+          usageToday[0].level - usageToday[usageToday.length - 1].level
+        )
+      : null;
 
-  const daysRemainingOnUsage = Math.abs(
-    Math.floor(distanceToVolume(data[data.length - 1].level) / usageInLitres)
-  );
+  const daysRemainingOnUsage = usageInLitres
+    ? Math.abs(
+        Math.floor(
+          distanceToVolume(data[data.length - 1].level) / usageInLitres
+        )
+      )
+    : null;
 
   const currentVolume = distanceToVolume(data[data.length - 1].level);
 
@@ -60,8 +67,8 @@ export default async function Home() {
         .
       </p>
       <div className="w-full space-y-2 lg:space-y-0 lg:space-x-2 flex lg:flex-row flex-col">
-        <CurrentLevel litres={currentVolume} />
-        <CurrentLevel litres={currentVolume} percent={true} />
+        <LatestLevel litres={currentVolume} />
+        <LatestLevel litres={currentVolume} percent={true} />
         <UsageTodayWidget litres={usageInLitres} />
         <Forecast days={daysRemainingOnUsage} />
       </div>

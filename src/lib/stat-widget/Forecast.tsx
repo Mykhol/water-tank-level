@@ -3,8 +3,8 @@
 import { Icon } from "@iconify/react";
 import Card from "./Card";
 
-const Forecast = ({ days }: { days: number }) => {
-  return (
+const Forecast = ({ days }: { days: number | null }) => {
+  return days ? (
     <Card>
       <Icon
         icon="material-symbols:water-damage-outline"
@@ -15,7 +15,7 @@ const Forecast = ({ days }: { days: number }) => {
         <p className="">Days Remaining</p>
       </div>
     </Card>
-  );
+  ) : null;
 };
 
 export default Forecast;
