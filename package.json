@@ -10,7 +10,7 @@
     "deploy": "yarn run build && gcloud app deploy --quiet"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.238.0",
+    "@aws-sdk/client-dynamodb": "^3.351.0",
     "@aws-sdk/lib-dynamodb": "^3.238.0",
     "@next/font": "13.1.1",
     "@types/node": "18.11.18",
